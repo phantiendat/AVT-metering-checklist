@@ -1,0 +1,119 @@
+﻿L108: [data-theme="dark"] .topbar {
+L113: [data-theme="dark"] .topbar *,
+L114: [data-theme="dark"] #topbar-user-role,
+L115: [data-theme="dark"] #topbar-session-id {
+L258: #topbar-session-id,
+L902: .template-item-delete {
+L915: .template-item:hover .template-item-delete {
+L919: .template-item-delete:hover {
+L958: .topbar {
+L1417: #analytics-modal, .sidebar, .topbar, .icon-btn, .admin-controls,
+L2218: #topbar-session-id, code, .session-id, kbd {
+L3034: [data-theme="dark"] .topbar { background: rgba(15, 23, 42, 0.85); border-bottom-color: rgba(255,255,255,0.05); }
+L3207: <form onsubmit="handleLogin(event)">
+L3650: <button class="btn btn-primary admin-mode" id="save-template-btn" onclick="showSaveTemplateModal()" style="margin-bottom: 8px; display: none;">
+L3667: <div class="topbar">
+L3675: <div id="topbar-user-info" style="display:none;"></div>
+L3676: <div id="topbar-session-info" style="display: none; font-size: 13px; color: var(--text-muted);">
+L3678: <span id="topbar-session-id" style="font-weight: 600; color: var(--text-main);">-</span>
+L3828: let currentSessionId = null;
+L3905: let currentUserRole = null; // 'client' or 'admin'
+L3955: topbarSessionInfo: null,
+L3956: topbarSessionId: null,
+L3957: topbarUserRole: null,
+L4014: this.topbarSessionInfo = document.getElementById('topbar-session-info');
+L4015: this.topbarSessionId = document.getElementById('topbar-session-id');
+L4016: this.topbarUserRole = document.getElementById('topbar-user-role');
+L4036: if (!isFirebaseEnabled || !currentSessionId || currentUserRole === 'view') return;
+L4040: db.ref(`sessions/${currentSessionId}/checklist`).set(currentData)
+L4042: db.ref(`sessions/${currentSessionId}/checked`).set(appState)
+L4296: currentSessionId = generateSessionId();
+L4297: const sessionRef = db.ref(`sessions/${currentSessionId}`);
+L4301: createdBy: currentUserRole || 'admin'
+L4306: saveSessionToHistory(currentSessionId);
+L4319: currentSessionId = sessionId;
+L4329: url.searchParams.set('session', currentSessionId);
+L4334: if (domCache.topbarSessionInfo && domCache.topbarSessionId && currentSessionId) {
+L4335: domCache.topbarSessionId.textContent = currentSessionId;
+L4336: domCache.topbarSessionInfo.style.display = 'flex';
+L4340: if (pillSession && currentSessionId) {
+L4341: pillSession.textContent = 'Session: ' + currentSessionId;
+L4346: const shareURL = `${window.location.origin}${window.location.pathname}?session=${currentSessionId}`;
+L4364: history.unshift({ id: sessionId, date: Date.now(), role: currentUserRole || 'admin', templateName: resolvedName });
+L4543: function showSaveTemplateModal() {
+L4564: saveAsTemplate(name, description);
+L4567: function saveAsTemplate(name, description) {
+L4581: createdBy: currentUserRole || 'admin',
+L4600: loadTemplateList();
+L4607: function loadTemplateList() {
+L4639: <button class="template-item-delete" onclick="event.stopPropagation(); deleteTemplate('${id}', '${escapeHtml(t.name).replace(/'/g,'&apos;')}')" title="Delete template" aria-label="Delete template">
+L4661: createSessionFromTemplate(template);
+L4665: function createSessionFromTemplate(template) {
+L4670: currentSessionId = generateSessionId();
+L4671: saveSessionToHistory(currentSessionId, template.name || null);
+L4676: window.currentTemplateName = template.name       || 'Unknown Template';
+L4678: const sessionRef = db.ref(`sessions/${currentSessionId}`);
+L4682: createdBy: currentUserRole || 'admin',
+L4713: if (!isFirebaseEnabled || !currentSessionId) return;
+L4718: const boundSessionId = currentSessionId; // capture for stale-callback guard
+L4725: if (currentSessionId !== boundSessionId) return;
+L4738: if (currentSessionId !== boundSessionId) return;
+L4748: if (currentSessionId !== boundSessionId) return;
+L4764: if (!isFirebaseEnabled || !currentSessionId) {
+L4769: db.ref(`sessions/${currentSessionId}/${path}`).set(data);
+L4773: if (!isFirebaseEnabled || !currentSessionId) {
+L4782: db.ref(`sessions/${currentSessionId}/checked/${taskId}`).set(isChecked);
+L4786: function handleLogin(e) {
+L4803: currentUserRole = role;
+L4813: applyRoleUI();
+L4831: currentUserRole = null;
+L4838: function applyRoleUI() {
+L4841: // Update user role display in topbar
+L4842: if (domCache.topbarUserRole) {
+L4843: const roleLabel = currentUserRole === 'admin' ? 'Administrator' : currentUserRole === 'client' ? 'Inspector' : (currentUserRole || '-');
+L4844: domCache.topbarUserRole.textContent = roleLabel;
+L4852: const roleLabel = currentUserRole === 'admin' ? 'Administrator' : currentUserRole === 'client' ? 'Inspector' : 'Viewer';
+L4854: pillName.textContent = currentUserRole === 'admin' ? 'Admin User' : currentUserRole === 'client' ? 'Field Inspector' : 'View-Only';
+L4860: if (navTemplates) navTemplates.style.display = (currentUserRole === 'admin' || currentUserRole === 'client') ? 'flex' : 'none';
+L4861: if (navExport) navExport.style.display = (currentUserRole === 'admin' || currentUserRole === 'client') ? 'flex' : 'none';
+L4868: domCache.saveTemplateBtn.style.display = currentUserRole === 'admin' ? 'block' : 'none';
+L4871: domCache.loadTemplateBtn.style.display = (currentUserRole === 'admin' || currentUserRole === 'client') ? 'block' : 'none';
+L4876: domCache.exportPdfBtn.style.display = (currentUserRole === 'admin' || currentUserRole === 'client') ? 'flex' : 'none';
+L4881: domCache.viewAnalyticsBtn.style.display = currentUserRole === 'admin' ? 'flex' : 'none';
+L4884: if (currentUserRole === 'admin') {
+L4888: } else if (currentUserRole === 'view') {
+L4902: if (isFirebaseEnabled && currentSessionId) {
+L4956: if (isFirebaseEnabled && currentSessionId) {
+L4957: db.ref(`sessions/${currentSessionId}/notes`).remove();
+L4983: if (!hasWritePermission()) return;
+L5104: const canEdit = currentUserRole === 'admin' || currentUserRole === 'client';
+L5188: if (isFirebaseEnabled && currentSessionId) {
+L5189: db.ref(`sessions/${currentSessionId}/notes/${key}`).remove();
+L5195: updatedBy: currentUserRole || 'user'
+L5198: if (isFirebaseEnabled && currentSessionId) {
+L5199: db.ref(`sessions/${currentSessionId}/notes/${key}`).set(noteData);
+L5254: function isValidRole(role) {
+L5258: function hasAdminPermission() {
+L5259: return currentUserRole === 'admin';
+L5262: function hasWritePermission() {
+L5263: return currentUserRole === 'admin' || currentUserRole === 'client';
+L5402: if (!hasAdminPermission()) return;
+L5406: if (!hasAdminPermission()) return;
+L5410: if (!hasAdminPermission()) return;
+L5414: if (!hasAdminPermission()) return;
+L5418: if (!hasAdminPermission()) return;
+L5422: if (!hasAdminPermission()) return;
+L5466: const sessionId = currentSessionId || 'N/A';
+L5467: const exportedBy = currentUserRole === 'admin' ? 'Administrator' : (currentUserRole === 'client' ? 'Inspector' : currentUserRole);
+L5771: role: currentUserRole,
+L5772: sessionId: currentSessionId,
+L6136: ${currentUserRole === 'view' ? 'disabled' : ''}
+L6150: ${currentUserRole === 'view' ? 'disabled' : ''}
+L6254: ${currentUserRole === 'view' ? 'disabled' : ''}
+L6268: ${currentUserRole === 'view' ? 'disabled' : ''}
+L6378: const userRole = currentUserRole || 'unknown';
+L6379: const sessId   = currentSessionId || '--';
+L6381: // Use stored Template ID & Name (set when a template is loaded via createSessionFromTemplate)
+L6383: const templateId   = window.currentTemplateId   || (currentSessionId ? 'BLANK' : 'NONE');
+L6384: const templateName = window.currentTemplateName || (currentSessionId ? 'Blank Session' : 'No Session');
+L6493: if (sessRole && isValidRole(sessRole)) {

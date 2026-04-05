@@ -1,0 +1,73 @@
+# Implementation Guide: AVT Industrial Liquid Design System
+
+This guide provides the technical specifications and design rationale for implementing the "Lumina Industrial" aesthetic into your Metering Verification application.
+
+## 1. Design Philosophy: "The Fluid Machine"
+The core aesthetic combines industrial precision with modern, organic "light liquid" elements. It balances high-contrast technical data with soft, translucent surfaces and vibrant neon glows.
+
+## 2. Global Style Constants (Tailwind/CSS)
+
+### Color Palette
+- **Primary (Electric Blue):** `#00A8E8` (Glow: `rgba(0, 168, 232, 0.4)`)
+- **Secondary (Cyan/Teal):** `#00FAC2` (Glow: `rgba(0, 250, 194, 0.4)`)
+- **Success (Emerald):** `#10B981` (Glow: `rgba(16, 185, 129, 0.4)`)
+- **Background (Light):** `#F8FAFC` (Slate 50)
+- **Background (Dark):** `#020617` (Slate 950)
+- **Surface (Glass):** `rgba(255, 255, 255, 0.7)` (Light) / `rgba(15, 23, 42, 0.7)` (Dark)
+
+### Typography
+- **Headings:** 'Space Grotesk' (Bold/Medium) - High-tech, industrial feel.
+- **Body:** 'Manrope' or 'Inter' (Medium/Regular) - High legibility for technical data.
+
+---
+
+## 3. Key Component Implementation
+
+### Glassmorphism (Frosted Glass)
+To achieve the "liquid" feel for sidebars and cards:
+- **CSS:** `backdrop-filter: blur(16px); background: rgba(..., 0.7); border: 1px solid rgba(255, 255, 255, 0.1);`
+- **Tailwind:** `bg-slate-900/70 backdrop-blur-xl border border-white/10`
+
+### Neon Glows
+Use `box-shadow` or `drop-shadow` for active status indicators and primary buttons:
+- **Example:** `box-shadow: 0 0 15px rgba(0, 168, 232, 0.6);`
+
+### Liquid Background Blobs
+Add absolute-positioned divs in the background with high blur:
+- **Light Mode:** Soft blue/teal blobs at 10-20% opacity.
+- **Dark Mode:** Deeper teal/purple blobs at 5-10% opacity.
+- **CSS:** `filter: blur(80px); border-radius: 50%;`
+
+---
+
+## 4. Layout Specifications
+
+### Desktop Dashboard (Multi-Column)
+- **Sidebar:** Fixed width (approx. 280px), glassmorphic surface.
+- **Main Content:** Flexbox or Grid layout. Use "Card-in-Card" logic for nested modules like the "Mechanical Inspection Module".
+- **Visual Depth:** Use subtle `translate-y` transitions on hover for cards to enhance the "floating" feel.
+
+### Mobile Experience (Single Column)
+- **Top/Bottom Bars:** Floating style with `rounded-2xl` and `margin: 1rem`.
+- **Navigation:** Use a bottom navigation bar for core views (Dashboard, Inspect, Logs).
+- **Interactions:** Use large, touch-friendly hit areas for checkboxes and primary buttons.
+
+---
+
+## 5. Dark Mode Strategy
+- **Logic:** Use the `dark:` utility classes in Tailwind.
+- **Surface Tonalities:** Instead of pure black, use deep slates (Slate 900/950) to maintain depth and allow shadows/blur effects to be visible.
+- **Contrast:** Ensure neon glows have sufficient contrast against dark surfaces.
+
+---
+
+## 6. Technical Implementation Checklist
+- [ ] Import 'Space Grotesk' from Google Fonts.
+- [ ] Set up a Tailwind configuration with the custom brand colors.
+- [ ] Create a reusable `GlassCard` component.
+- [ ] Implement the background blob animation (subtle scaling or floating).
+- [ ] Standardize the "Neon Badge" component for status levels.
+
+---
+
+*This guide is based on screens: {{DATA:SCREEN:SCREEN_11}}, {{DATA:SCREEN:SCREEN_9}}, {{DATA:SCREEN:SCREEN_13}}, and {{DATA:SCREEN:SCREEN_7}}.*

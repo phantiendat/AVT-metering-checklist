@@ -3396,6 +3396,25 @@
             .right-sidebar { display: none; }
         }
 
+        /* ── Mobile Layout Fixes (≤ 768px) ── */
+        @media (max-width: 768px) {
+            /* Fix 1: Remove leftover 260px grid track that crushes main-content */
+            .app-container {
+                display: block; /* Removes the 260px ghost column completely */
+            }
+
+            /* Fix 2: Stack KPI cards vertically instead of squishing 3-across */
+            .kpi-row {
+                grid-template-columns: 1fr; /* Stack into single column */
+                gap: 12px;
+            }
+
+            /* Fix 3: Optimize padding for small screens */
+            .page-container {
+                padding: 16px 12px 80px;
+            }
+        }
+
         /* ══════════════════════════════════════════
            TIER 5: KPI CARDS & LIQUID GAUGE
            ══════════════════════════════════════════ */

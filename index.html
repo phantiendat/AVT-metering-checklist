@@ -195,6 +195,17 @@
             position: relative;
         }
 
+        /* ── Mobile body: unlock scroll so content is reachable ── */
+        @media (max-width: 768px) {
+            body {
+                display: block;
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+                overflow-x: hidden;
+            }
+        }
+
         /* ── Lumina Liquid Background Blobs ── */
         .blob-bg {
             position: fixed;
@@ -3400,20 +3411,23 @@
 
         /* ── Mobile Layout Fixes (≤ 768px) ── */
         @media (max-width: 768px) {
-            /* Fix 1: Sidebar is position:fixed so grid track is empty.
-               Override to 1fr so main-content fills the full viewport width. */
+            /* Fix 1: app-container becomes a simple block — sidebar is position:fixed
+               and will slide over the top. main-content takes full width naturally. */
             .app-container {
-                grid-template-columns: 1fr;
-                height: 100vh;
-                overflow: hidden;
+                display: block;
+                height: auto;
+                min-height: 100vh;
+                overflow: visible;
+                width: 100%;
             }
 
-            /* main-content must fill full width since sidebar is fixed+hidden */
+            /* main-content fills full width, scrolls on its own */
             .main-content {
                 width: 100%;
                 min-width: 0;
-                overflow-y: auto;
-                height: 100vh;
+                height: auto;
+                min-height: calc(100vh - 52px); /* subtract topbar height */
+                overflow-y: visible;
             }
 
             /* Fix 2: Stack KPI cards vertically instead of squishing 3-across */

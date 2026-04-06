@@ -3400,14 +3400,25 @@
 
         /* ── Mobile Layout Fixes (≤ 768px) ── */
         @media (max-width: 768px) {
-            /* Fix 1: Remove leftover 260px grid track that crushes main-content */
+            /* Fix 1: Sidebar is position:fixed so grid track is empty.
+               Override to 1fr so main-content fills the full viewport width. */
             .app-container {
-                display: block; /* Removes the 260px ghost column completely */
+                grid-template-columns: 1fr;
+                height: 100vh;
+                overflow: hidden;
+            }
+
+            /* main-content must fill full width since sidebar is fixed+hidden */
+            .main-content {
+                width: 100%;
+                min-width: 0;
+                overflow-y: auto;
+                height: 100vh;
             }
 
             /* Fix 2: Stack KPI cards vertically instead of squishing 3-across */
             .kpi-row {
-                grid-template-columns: 1fr; /* Stack into single column */
+                grid-template-columns: 1fr;
                 gap: 12px;
             }
 

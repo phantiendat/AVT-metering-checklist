@@ -3421,12 +3421,27 @@
                 width: 100%;
             }
 
+            /* CRITICAL: Tier-4 CSS sets .sidebar { position: relative } which comes
+               AFTER the 768px block at line ~1811. Use !important to win the cascade
+               and ensure the sidebar is always out of document flow on mobile. */
+            .sidebar {
+                position: fixed !important;
+                top: 0;
+                left: 0;
+                height: 100vh !important;
+                z-index: 20;
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0) !important;
+            }
+
             /* main-content fills full width, scrolls on its own */
             .main-content {
                 width: 100%;
                 min-width: 0;
                 height: auto;
-                min-height: calc(100vh - 52px); /* subtract topbar height */
                 overflow-y: visible;
             }
 
